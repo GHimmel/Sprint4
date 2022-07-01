@@ -1,0 +1,2 @@
+NroCheque;CodigoBanco;CodigoScurusal;NumeroCuentaOrigen;NumeroCuentaDestino;Valor;FechaOrigen;FechaPago;DNI;Estado
+123456;55;15;48523542;45672458;50000;2022-02-30 14:04:26.537969;2022-06-30 14:04:26.537969;41384759;APROVADO
