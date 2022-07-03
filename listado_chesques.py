@@ -1,4 +1,5 @@
 import sys
+import csv
 
 nombrDelArchivo = sys.argv[1]
 """ dni=sys.argv[2]
