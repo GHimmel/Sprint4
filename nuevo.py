@@ -91,7 +91,7 @@ def pantalla_CSV():
                   Datos["Valor"]+";"+Datos["NumeroCuentaOrigen"]+"\n")
     elif salida == "CSV":
         print("creando archivo csv")
-        with open(f"{dniParametro}-{times}.csv", "a") as h:
+        with open(f"archivosCSV/{dniParametro}-{times}.csv", "a") as h:
             h.write("FechaOrigen;FechaPago;Valor;NumeroCuentaOrigen\n")
             for k in chequeEstado:
                 h.write(k["FechaOrigen"]+";"+k["FechaPago"]+";" +
