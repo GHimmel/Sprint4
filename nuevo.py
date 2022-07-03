@@ -3,7 +3,8 @@ import csv
 from datetime import datetime
 import sys
 
-times= datetime.now()
+t= datetime.now()
+times= t.date()
 dia=time.localtime().tm_mday
 """ hora=time.localtime().tm_hour 
 mes=time.localtime().tm_mon
@@ -72,7 +73,7 @@ def estadosCheques():
 
 
 
-def fecha ():
+""" def fecha ():
     f=rangoFecha.split(":")
     fechaInf=f[0]
     fechaSup=f[1]
@@ -80,7 +81,7 @@ def fecha ():
     print(fechaSup)
     for y in chequeEstado:
         una_fecha = y["FechaOrigen"]
-        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d')
+        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d') """
         
 
 
@@ -91,8 +92,10 @@ def pantalla_CSV ():
         print ("sale por pantalla")
     elif salida == "CSV":
         print ("creando archivo csv")
-        with open(dniParametro+"-"+dia+".csv","a") as h:
-            h.write("<"+dniParametro+"><"+dia+">\n")
+        with open(f"{dniParametro}-{times}.csv","a") as h:
+            h.write("FechaOrigen;FechaPago;Valor;NumeroCuentaOrigen\n")
+            for k in chequeEstado:
+                h.write(k["FechaOrigen"]+";"+k["FechaPago"]+";"+k["Valor"]+";"+k["NumeroCuentaOrigen"]+"\n")
         h.close
 
 
@@ -103,5 +106,5 @@ filtroDNIyCodigoBanco()
 numeroDeCheque()
 emitidoYdepositados()
 estadosCheques()
-fecha()
+""" fecha() """
 pantalla_CSV()
