@@ -3,8 +3,6 @@ import csv
 from datetime import datetime
 import sys
 
-from listado_chesques import FechaOrigen
-
 t = datetime.now()
 times = t.date()
 dia = time.localtime().tm_mday
@@ -37,19 +35,19 @@ def filtroDNIyCodigoBanco():
     for dni in todosCheques:
 
         if dniParametro == dni["DNI"]:
-            print(dni["DNI"])
+            #print(dni["DNI"])
             posicionDni.append(dni)
 
     for ndr in posicionDni:
-        print(ndr["NroCheque"])
+        #print(ndr["NroCheque"])
         ndc.append(int(ndr["NroCheque"]))
 
 
 # en la lista ndc guarde todos los numeros de cheques correspondiente a ese dni, para ver que no se repitan, compare el len de la lista vs el len de la lista con un set, el exit para la ejecucion del programa
 
 def numeroDeCheque():
-    print(ndc)
-    print(set(ndc))
+    #print(ndc)
+    #print(set(ndc))
     if len(ndc) != len(set(ndc)):
         print("ERROR: Numero de chueque duplicado")
         exit()
@@ -60,7 +58,7 @@ def emitidoYdepositados():
         if emi["tipo"] == tipoDeCheque:
             emiOdepo.append(emi)
 
-    print(emiOdepo)
+    #print(emiOdepo)
 
 
 def estadosCheques():
@@ -70,10 +68,10 @@ def estadosCheques():
         elif estadoDelCheque == "NONE":
             chequeEstado.append(x)
 
-    print(chequeEstado)
+    #print(chequeEstado)
 
 
-def fecha ():
+""" def fecha ():
     f=rangoFecha.split(":")
     fechaInf=f[0]
     fechaSup=f[1]
@@ -82,7 +80,7 @@ def fecha ():
     for y in chequeEstado:
         una_fecha = y["FechaOrigen"]
         fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d')
-        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d') 
+        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d')  """
 
 # ver por donde imprimir los parametro, pantalla o csv
 
@@ -105,5 +103,5 @@ filtroDNIyCodigoBanco()
 numeroDeCheque()
 emitidoYdepositados()
 estadosCheques()
-fecha()
+""" fecha() """
 pantalla_CSV()
