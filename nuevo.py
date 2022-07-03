@@ -3,7 +3,8 @@ import csv
 from datetime import datetime
 import sys
 
-times= datetime.now()
+t= datetime.now()
+times= t.date()
 dia=time.localtime().tm_mday
 """ hora=time.localtime().tm_hour 
 mes=time.localtime().tm_mon
@@ -91,7 +92,7 @@ def pantalla_CSV ():
         print ("sale por pantalla")
     elif salida == "CSV":
         print ("creando archivo csv")
-        with open(f"{dniParametro}.csv","a") as h:
+        with open(f"{dniParametro}-{times}.csv","a") as h:
             h.write("FechaOrigen;FechaPago;Valor;NumeroCuentaOrigen\n")
             for k in chequeEstado:
                 h.write(k["FechaOrigen"]+";"+k["FechaPago"]+";"+k["Valor"]+";"+k["NumeroCuentaOrigen"]+"\n")
