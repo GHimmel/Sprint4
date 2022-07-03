@@ -1,13 +1,13 @@
 import sys
 
 nombrDelArchivo=sys.argv[1]
-""" dni=sys.argv[2]
-salida=sys.argv[3]
+dniParametro=sys.argv[2]
+"""salida=sys.argv[3]
 tipoDeCheque=sys.argv[4]
 estadoDelCheque=sys.argv[5]
 rangoFecha=sys.argv[6]  """
 num=0  
-
+todoLosDatosCheque={}
 NroDeChequesDic={}
 CodigoBanco={}
 CodigoScurusal={}
@@ -26,6 +26,7 @@ for cheque in cheques:
     num+=1 
     cheque=cheque.rstrip("\n")
     chequeSeparado=cheque.split(";")
+    todoLosDatosCheque[str(num)]=chequeSeparado
     NroDeChequesDic[str(num)]=chequeSeparado[0]
     CodigoBanco[str(num)]=chequeSeparado[1]
     CodigoScurusal[str(num)]=chequeSeparado[2]
@@ -36,12 +37,25 @@ for cheque in cheques:
     FechaPago[str(num)]=chequeSeparado[7]
     dni[str(num)]=chequeSeparado[8]
     Estado[str(num)]=chequeSeparado[9]
-
-
-    
+  
 cheques.close()
 
-print (NroDeChequesDic)
+chequesSelecionados={}
+nana=0
+for NroDni in dni:
+    nana+=1
+    if dniParametro == dni[NroDni]:
+        chequesSelecionados[str(nana)]=str(chequeSeparado)
+
+
+
+
+
+print(chequesSelecionados)
+
+
+
+""" print (NroDeChequesDic)
 print(CodigoBanco)
 print(CodigoScurusal)
 print(NumeroCuentaOrigen)
@@ -50,7 +64,7 @@ print(Valor)
 print(FechaOrigen)
 print(FechaPago)
 print(dni)
-print(Estado)
+print(Estado) """
 
 
 
