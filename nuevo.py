@@ -73,7 +73,7 @@ def estadosCheques():
 
 
 
-""" def fecha ():
+def fecha ():
     f=rangoFecha.split(":")
     fechaInf=f[0]
     fechaSup=f[1]
@@ -81,7 +81,7 @@ def estadosCheques():
     print(fechaSup)
     for y in chequeEstado:
         una_fecha = y["FechaOrigen"]
-        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d') """
+        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d')
         
 
 
@@ -106,5 +106,5 @@ filtroDNIyCodigoBanco()
 numeroDeCheque()
 emitidoYdepositados()
 estadosCheques()
-""" fecha() """
+fecha()
 pantalla_CSV()
