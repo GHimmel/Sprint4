@@ -2,7 +2,7 @@ import time
 import csv
 from datetime import datetime
 import sys
-
+#PARA LA CONSOLA: python nuevo.py cuentas.csv 4134759 PANTALLA DEPOSITADO NONE 20-08-2022:20-09-2022
 t = datetime.now()
 times = t.date()
 dia = time.localtime().tm_mday
