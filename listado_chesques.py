@@ -2,8 +2,8 @@ import time
 import csv
 from datetime import datetime
 import sys
-# PARA LA CONSOLA: python listado_chesques.py cuentas.csv 41347590 CSV DEPOSITADO NONE 20-08-2022:20-09-2022
-# PARA LA CONSOLA: python listado_chesques.py cuentas.csv "DNI" "SALIDA" "TIPO" "ESTADO" "FECHA:FECHA"
+# PARA LA CONSOLA: python listado_chesques.py cuentas.csv 41347590 CSV DEPOSITADO APROBADO 20-08-2022:20-09-2022
+# PARA LA CONSOLA: python listado_chesques.py cuentas.csv "DNI" "SALIDA" "TIPO" "ESTADO o NONE" "FECHA:FECHA"
 t = datetime.now()
 times = t.date()
 dia = time.localtime().tm_mday
@@ -42,7 +42,7 @@ def filtroDNIyCodigoBanco():
     for ndr in posicionDni:
         # print(ndr["NroCheque"])
         ndc.append(int(ndr["NroCheque"]))
-    
+
 
 # en la lista ndc guarde todos los numeros de cheques correspondiente a ese dni, para ver que no se repitan, compare el len de la lista vs el len de la lista con un set, el exit para la ejecucion del programa
 
@@ -56,13 +56,11 @@ def numeroDeCheque():
 
 def emitidoYdepositados():
     for emi in posicionDni:
-        
+
         if emi["tipo"] == tipoDeCheque:
             emiOdepo.append(emi)
-      
-    #print(emiOdepo)
 
-
+    # print(emiOdepo)
 
 
 def estadosCheques():
