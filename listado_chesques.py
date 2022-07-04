@@ -59,8 +59,10 @@ def emitidoYdepositados():
         
         if emi["tipo"] == tipoDeCheque:
             emiOdepo.append(emi)
-            
+      
     #print(emiOdepo)
+
+
 
 
 def estadosCheques():
@@ -70,7 +72,7 @@ def estadosCheques():
         elif estadoDelCheque == "NONE":
             chequeEstado.append(x)
 
-    #print(chequeEstado)
+    # print(chequeEstado)
 
 
 """ def fecha ():
