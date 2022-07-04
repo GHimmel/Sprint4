@@ -15,13 +15,21 @@ posicionDni = []  # LISTA con diccionarios de los cheques del usuario filtrados
 ndc = []  # Todos los numero de cheque del usuario
 emiOdepo = []  # los cheques ya filtrados por el estado depositado o emitido
 chequeEstado = []  # Los cheques filtrados por el estado
+ListaFecha = []  # lista de las fechas
 nombrDelArchivo = sys.argv[1]
 dniParametro = sys.argv[2]
 salida = sys.argv[3]
 tipoDeCheque = sys.argv[4]
 estadoDelCheque = sys.argv[5]
 rangoFecha = sys.argv[6]
+# Pasar Fecha de string a Timestamp--
+Fecha_Separada = rangoFecha.split(":")
+Fecha_Inicio = datetime.timestamp(
+    datetime.strptime(Fecha_Separada[0], "%d-%m-%Y"))
 
+Fecha_Fin = datetime.timestamp(
+    datetime.strptime(Fecha_Separada[1], "%d-%m-%Y"))
+# ---------
 with open(nombrDelArchivo, "r") as f:
     csv_cheques = csv.DictReader(f, delimiter=";")
     todosCheques = list(csv_cheques)
@@ -72,17 +80,30 @@ def estadosCheques():
 
     # print(chequeEstado)
 
+# filtro para rango de fecha
 
-""" def fecha ():
-    f=rangoFecha.split(":")
-    fechaInf=f[0]
-    fechaSup=f[1]
-    print(fechaInf)
-    print(fechaSup)
-    for y in chequeEstado:
-        una_fecha = y["FechaOrigen"]
-        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d')
-        fecha_dt = datetime.strptime(una_fecha,'%Y-%m-%d')  """
+
+def fecha():
+
+    if rangoFecha:
+        for x in chequeEstado:
+
+            if Fecha_Inicio <= float(x["FechaOrigen"]) and Fecha_Fin >= float(x["FechaOrigen"]):
+                ListaFecha.append(x)
+    else:
+        for x in chequeEstado:
+
+            ListaFecha.append(x)
+
+        # f = rangoFecha.split(":")
+        # fechaInf = f[0]
+        # fechaSup = f[1]
+        # print(fechaInf)
+        # print(fechaSup)
+        # for y in chequeEstado:
+        #     una_fecha = y["FechaOrigen"]
+        #     fecha_dt = datetime.strptime(una_fecha, '%Y-%m-%d')
+        #     fecha_dt = datetime.strptime(una_fecha, '%Y-%m-%d')
 
 # ver por donde imprimir los parametro, pantalla o csv
 
@@ -108,5 +129,7 @@ filtroDNIyCodigoBanco()
 numeroDeCheque()
 emitidoYdepositados()
 estadosCheques()
-""" fecha() """
+fecha()
 pantalla_CSV()
+print(Fecha_Inicio)
+print(Fecha_Fin)
