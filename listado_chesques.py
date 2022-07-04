@@ -19,8 +19,13 @@ nombrDelArchivo = sys.argv[1]
 dniParametro = sys.argv[2]
 salida = sys.argv[3]
 tipoDeCheque = sys.argv[4]
-estadoDelCheque = sys.argv[5]
-rangoFecha = sys.argv[6]
+estadoDelCheque= "NONE"
+
+if len(sys.argv) == 6:
+    estadoDelCheque = sys.argv[5]
+
+elif len(sys.argv) == 7:
+    rangoFecha = sys.argv[6]
 
 with open(nombrDelArchivo, "r") as f:
     csv_cheques = csv.DictReader(f, delimiter=";")
@@ -49,15 +54,24 @@ def filtroDNIyCodigoBanco():
 def numeroDeCheque():
     # print(ndc)
     # print(set(ndc))
-    if len(ndc) != len(set(ndc)):
+    """ if len(ndc) != len(set(ndc)):
         print("ERROR: Numero de chueque duplicado")
-        exit()
-
+        exit() """
+    vistos=set()
+    for y in chequeEstado:
+        nro_cheque = y ["NroCheque"]
+        nro_cuenta= y ["NumeroCuentaOrigen"]
+        dni=y["DNI"]
+        if (nro_cheque,nro_cuenta,dni) in vistos:
+            print("ERROR: Numero de chueque o de cuenta duplicado")
+            exit()
+        else :
+            vistos.add((nro_cheque,nro_cuenta,dni))
 
 def emitidoYdepositados():
     for emi in posicionDni:
         
-        if emi["tipo"] == tipoDeCheque:
+        if emi["tipo"] == tipoDeCheque: #EMITIDO o DEPOSITADO .
             emiOdepo.append(emi)
       
     #print(emiOdepo)
@@ -67,7 +81,7 @@ def emitidoYdepositados():
 
 def estadosCheques():
     for x in emiOdepo:
-        if x["Estado"] == estadoDelCheque:
+        if x["Estado"] == estadoDelCheque: #PENDIENTE, APROBADO, RECHAZADO.
             chequeEstado.append(x)
         elif estadoDelCheque == "NONE":
             chequeEstado.append(x)
@@ -107,8 +121,9 @@ def pantalla_CSV():
 
 
 filtroDNIyCodigoBanco()
-numeroDeCheque()
 emitidoYdepositados()
 estadosCheques()
+numeroDeCheque()
 """ fecha() """
 pantalla_CSV()
+
