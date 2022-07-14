@@ -21,14 +21,24 @@ nombrDelArchivo = sys.argv[1]
 dniParametro = sys.argv[2]
 salida = sys.argv[3]
 tipoDeCheque = sys.argv[4]
-estadoDelCheque= None
+estadoDelCheque = None
 rangoFecha = None
 if len(sys.argv) == 6:
-    estadoDelCheque = sys.argv[5]
+    if sys.argv[5] == "APROBADO" or sys.argv[5] == "PENDIENTE" or sys.argv[5] == "RECHAZADO":
+        estadoDelCheque = sys.argv[5]
+    else:
+        rangoFecha = sys.argv[5]
 
 elif len(sys.argv) == 7:
     estadoDelCheque = sys.argv[5]
     rangoFecha = sys.argv[6]
+
+# if len(sys.argv) == 6:
+#     ChequeNone = sys.argv[5]
+
+#  elif len(sys.argv) == 7:
+#      ChequeNone = sys.argv[5]
+#      rangoFecha = sys.argv[6]
 
 # Pasar Fecha de string a Timestamp--
 """ Fecha_Separada = rangoFecha.split(":")
@@ -60,28 +70,29 @@ def filtroDNIyCodigoBanco():
 
 
 def emitidoYdepositados():
-    for emi in posicionDni:  
-        if emi["tipo"] == tipoDeCheque: #EMITIDO o DEPOSITADO .
+    for emi in posicionDni:
+        if emi["tipo"] == tipoDeCheque:  # EMITIDO o DEPOSITADO .
             emiOdepo.append(emi)
 
     # print(emiOdepo)
+
 
 def estadosCheques():
     for x in emiOdepo:
         if estadoDelCheque:
             chequeEstado.append(x)
-        elif x["Estado"] == estadoDelCheque: #PENDIENTE, APROBADO, RECHAZADO.
+        elif x["Estado"] == estadoDelCheque:  # PENDIENTE, APROBADO, RECHAZADO.
             chequeEstado.append(x)
-
 
     """ if x["Estado"] == estadoDelCheque: #PENDIENTE, APROBADO, RECHAZADO.
             chequeEstado.append(x)
         elif estadoDelCheque == "NONE":
             chequeEstado.append(x) """
 
-    #print(chequeEstado)
+    # print(chequeEstado)
 
 # en la lista ndc guarde todos los numeros de cheques correspondiente a ese dni, para ver que no se repitan, compare el len de la lista vs el len de la lista con un set, el exit para la ejecucion del programa
+
 
 def numeroDeCheque():
     # print(ndc)
@@ -89,37 +100,35 @@ def numeroDeCheque():
     """ if len(ndc) != len(set(ndc)):
         print("ERROR: Numero de chueque duplicado")
         exit() """
-    vistos=set()
+    vistos = set()
     for y in ListaFecha:
-        nro_cheque = y ["NroCheque"]
-        nro_cuenta= y ["NumeroCuentaOrigen"]
-        dni=y["DNI"]
-        if (nro_cheque,nro_cuenta,dni) in vistos:
+        nro_cheque = y["NroCheque"]
+        nro_cuenta = y["NumeroCuentaOrigen"]
+        dni = y["DNI"]
+        if (nro_cheque, nro_cuenta, dni) in vistos:
             print("ERROR: Numero de chueque o de cuenta duplicado")
             exit()
-        else :
-            vistos.add((nro_cheque,nro_cuenta,dni))
-
+        else:
+            vistos.add((nro_cheque, nro_cuenta, dni))
 
 
 # filtro para rango de fecha
 
-     
+
 def fecha():
-    
+
     if rangoFecha:
         Fecha_Separada = rangoFecha.split(":")
         Fecha_Inicio = datetime.timestamp(
-        datetime.strptime(Fecha_Separada[0], "%d-%m-%Y"))
+            datetime.strptime(Fecha_Separada[0], "%d-%m-%Y"))
         Fecha_Fin = datetime.timestamp(
-        datetime.strptime(Fecha_Separada[1], "%d-%m-%Y"))
+            datetime.strptime(Fecha_Separada[1], "%d-%m-%Y"))
         for x in chequeEstado:
             if Fecha_Inicio <= float(x["FechaOrigen"]) and Fecha_Fin >= float(x["FechaOrigen"]):
-                ListaFecha.append(x)    
+                ListaFecha.append(x)
     else:
         for x in chequeEstado:
             ListaFecha.append(x)
-    
 
         # f = rangoFecha.split(":")
         # fechaInf = f[0]
@@ -139,7 +148,7 @@ def pantalla_CSV():
         print("NroCheque;CodigoBanco;CodigoScurusal;NumeroCuentaOrigen;NumeroCuentaDestino;Valor;FechaOrigen;FechaPago;DNI;Estado;tipo")
         for Datos in ListaFecha:
             """  print(Datos["FechaOrigen"]+";"+Datos["FechaPago"]+";"+Datos["Valor"]+";"+Datos["NumeroCuentaOrigen"]) """
-            print(list(Datos.values()))    
+            print(list(Datos.values()))
 
     elif salida == "CSV":
         print("creando archivo csv")
