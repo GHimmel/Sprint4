@@ -6,7 +6,7 @@ import sys
 # Ej: python listado_chesques.py cuentas.csv 41917530 CVS EMITIDO APROBADO 12-05-2000:25-05-2000
 
 t = datetime.now()
-times = t.date()
+times = datetime.timestamp(t)
 dia = time.localtime().tm_mday
 
 
@@ -105,4 +105,3 @@ filtroDNIyCodigoBanco()
 fecha()
 numeroDeCheque()
 pantalla_CSV() 
-
