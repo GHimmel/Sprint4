@@ -8,9 +8,7 @@ import sys
 t = datetime.now()
 times = t.date()
 dia = time.localtime().tm_mday
-""" hora=time.localtime().tm_hour 
-mes=time.localtime().tm_mon
-año=time.localtime().tm_year """  # timestamps
+
 
 posicionDni = []  # LISTA con diccionarios de los cheques del usuario filtrados
 ndc = []  # Todos los numero de cheque del usuario
@@ -23,6 +21,7 @@ salida = sys.argv[3]
 tipoDeCheque = sys.argv[4]
 estadoDelCheque = None
 rangoFecha = None
+
 if len(sys.argv) == 6:
     if sys.argv[5] == "APROBADO" or sys.argv[5] == "PENDIENTE" or sys.argv[5] == "RECHAZADO":
         estadoDelCheque = sys.argv[5]
@@ -33,20 +32,6 @@ elif len(sys.argv) == 7:
     estadoDelCheque = sys.argv[5]
     rangoFecha = sys.argv[6]
 
-# if len(sys.argv) == 6:
-#     ChequeNone = sys.argv[5]
-
-#  elif len(sys.argv) == 7:
-#      ChequeNone = sys.argv[5]
-#      rangoFecha = sys.argv[6]
-
-# Pasar Fecha de string a Timestamp--
-""" Fecha_Separada = rangoFecha.split(":")
-Fecha_Inicio = datetime.timestamp(
-    datetime.strptime(Fecha_Separada[0], "%d-%m-%Y"))
-Fecha_Fin = datetime.timestamp(
-    datetime.strptime(Fecha_Separada[1], "%d-%m-%Y")) """
-# ---------
 with open(nombrDelArchivo, "r") as f:
     csv_cheques = csv.DictReader(f, delimiter=";")
     todosCheques = list(csv_cheques)
@@ -60,16 +45,16 @@ def filtroDNIyCodigoBanco():
 
     for dni in todosCheques:
 
-        if dniParametro == dni["DNI"]:
-            # print(dni["DNI"])
-            posicionDni.append(dni)
+        if dniParametro == dni["DNI"] and tipoDeCheque == dni["tipo"]:
+            if estadoDelCheque:
+                if estadoDelCheque == dni["Estado"]:
+                    posicionDni.append(dni)
+            else: 
+                posicionDni.append(dni)
 
-    for ndr in posicionDni:
-        # print(ndr["NroCheque"])
-        ndc.append(int(ndr["NroCheque"]))
 
 
-def emitidoYdepositados():
+"""def emitidoYdepositados():
     for emi in posicionDni:
         if emi["tipo"] == tipoDeCheque:  # EMITIDO o DEPOSITADO .
             emiOdepo.append(emi)
@@ -82,9 +67,9 @@ def estadosCheques():
         if estadoDelCheque:
             chequeEstado.append(x)
         elif x["Estado"] == estadoDelCheque:  # PENDIENTE, APROBADO, RECHAZADO.
-            chequeEstado.append(x)
+            chequeEstado.append(x) """
 
-    """ if x["Estado"] == estadoDelCheque: #PENDIENTE, APROBADO, RECHAZADO.
+""" if x["Estado"] == estadoDelCheque: #PENDIENTE, APROBADO, RECHAZADO.
             chequeEstado.append(x)
         elif estadoDelCheque == "NONE":
             chequeEstado.append(x) """
@@ -94,13 +79,13 @@ def estadosCheques():
 # en la lista ndc guarde todos los numeros de cheques correspondiente a ese dni, para ver que no se repitan, compare el len de la lista vs el len de la lista con un set, el exit para la ejecucion del programa
 
 
-def numeroDeCheque():
+""" def numeroDeCheque():
     # print(ndc)
-    # print(set(ndc))
-    """ if len(ndc) != len(set(ndc)):
+    # print(set(ndc)) """
+""" if len(ndc) != len(set(ndc)):
         print("ERROR: Numero de chueque duplicado")
         exit() """
-    vistos = set()
+""" vistos = set()
     for y in ListaFecha:
         nro_cheque = y["NroCheque"]
         nro_cuenta = y["NumeroCuentaOrigen"]
@@ -109,7 +94,7 @@ def numeroDeCheque():
             print("ERROR: Numero de chueque o de cuenta duplicado")
             exit()
         else:
-            vistos.add((nro_cheque, nro_cuenta, dni))
+            vistos.add((nro_cheque, nro_cuenta, dni)) """
 
 
 # filtro para rango de fecha
@@ -123,11 +108,11 @@ def fecha():
             datetime.strptime(Fecha_Separada[0], "%d-%m-%Y"))
         Fecha_Fin = datetime.timestamp(
             datetime.strptime(Fecha_Separada[1], "%d-%m-%Y"))
-        for x in chequeEstado:
+        for x in posicionDni:
             if Fecha_Inicio <= float(x["FechaOrigen"]) and Fecha_Fin >= float(x["FechaOrigen"]):
                 ListaFecha.append(x)
     else:
-        for x in chequeEstado:
+        for x in posicionDni:
             ListaFecha.append(x)
 
         # f = rangoFecha.split(":")
@@ -161,8 +146,11 @@ def pantalla_CSV():
 
 
 filtroDNIyCodigoBanco()
-emitidoYdepositados()
-estadosCheques()
-fecha()
-numeroDeCheque()
-pantalla_CSV()
+"""emitidoYdepositados()
+estadosCheques() """
+fecha() 
+""" numeroDeCheque() """
+pantalla_CSV() 
+""" print(posicionDni)
+print(ListaFecha)
+print(estadoDelCheque) """
