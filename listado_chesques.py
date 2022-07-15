@@ -2,9 +2,9 @@ import time
 import csv
 from datetime import datetime
 import sys
-# PARA LA CONSOLA: python listado_chesques.py cuentas.csv 41347590 CSV DEPOSITADO APROBADO 20-08-2022:20-09-2022
-# PARA LA CONSOLA: python listado_chesques.py cuentas.csv "DNI" "SALIDA" "TIPO" "ESTADO o NONE" "FECHA:FECHA"
-# Ej: python listado_chesques.py cuentas.csv 41917530 CVS  EMITIDO APROBADO 12-05-2000:25-05-2000
+
+# Ej: python listado_chesques.py cuentas.csv 41917530 CVS EMITIDO APROBADO 12-05-2000:25-05-2000
+
 t = datetime.now()
 times = t.date()
 dia = time.localtime().tm_mday
@@ -40,7 +40,6 @@ f.close()
 
 # recorro todoCheques y voy comparando dni con dni parametro, si son iguales, agrego a una lista ese diccionario (posicionDNI)
 
-
 def filtroDNIyCodigoBanco():
 
     for dni in todosCheques:
@@ -54,7 +53,6 @@ def filtroDNIyCodigoBanco():
 
 # en la lista ndc guarde todos los numeros de cheques correspondiente a ese dni, para ver que no se repitan, compare el len de la lista vs el len de la lista con un set, el exit para la ejecucion del programa
 
-
 def numeroDeCheque():
     vistos = set()
     for y in ListaFecha:
@@ -67,9 +65,7 @@ def numeroDeCheque():
         else:
             vistos.add((nro_cheque, nro_cuenta, dni))
 
-
 # filtro para rango de fecha
-
 
 def fecha():
 
@@ -87,7 +83,6 @@ def fecha():
             ListaFecha.append(x)
 
 # ver por donde imprimir los parametro, pantalla o csv
-
 
 def pantalla_CSV():
     if salida == "PANTALLA":
