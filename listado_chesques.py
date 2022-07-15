@@ -52,40 +52,11 @@ def filtroDNIyCodigoBanco():
             else: 
                 posicionDni.append(dni)
 
-
-
-"""def emitidoYdepositados():
-    for emi in posicionDni:
-        if emi["tipo"] == tipoDeCheque:  # EMITIDO o DEPOSITADO .
-            emiOdepo.append(emi)
-
-    # print(emiOdepo)
-
-
-def estadosCheques():
-    for x in emiOdepo:
-        if estadoDelCheque:
-            chequeEstado.append(x)
-        elif x["Estado"] == estadoDelCheque:  # PENDIENTE, APROBADO, RECHAZADO.
-            chequeEstado.append(x) """
-
-""" if x["Estado"] == estadoDelCheque: #PENDIENTE, APROBADO, RECHAZADO.
-            chequeEstado.append(x)
-        elif estadoDelCheque == "NONE":
-            chequeEstado.append(x) """
-
-    # print(chequeEstado)
-
 # en la lista ndc guarde todos los numeros de cheques correspondiente a ese dni, para ver que no se repitan, compare el len de la lista vs el len de la lista con un set, el exit para la ejecucion del programa
 
 
-""" def numeroDeCheque():
-    # print(ndc)
-    # print(set(ndc)) """
-""" if len(ndc) != len(set(ndc)):
-        print("ERROR: Numero de chueque duplicado")
-        exit() """
-""" vistos = set()
+def numeroDeCheque():
+    vistos = set()
     for y in ListaFecha:
         nro_cheque = y["NroCheque"]
         nro_cuenta = y["NumeroCuentaOrigen"]
@@ -94,7 +65,7 @@ def estadosCheques():
             print("ERROR: Numero de chueque o de cuenta duplicado")
             exit()
         else:
-            vistos.add((nro_cheque, nro_cuenta, dni)) """
+            vistos.add((nro_cheque, nro_cuenta, dni))
 
 
 # filtro para rango de fecha
@@ -114,16 +85,6 @@ def fecha():
     else:
         for x in posicionDni:
             ListaFecha.append(x)
-
-        # f = rangoFecha.split(":")
-        # fechaInf = f[0]
-        # fechaSup = f[1]
-        # print(fechaInf)
-        # print(fechaSup)
-        # for y in chequeEstado:
-        #     una_fecha = y["FechaOrigen"]
-        #     fecha_dt = datetime.strptime(una_fecha, '%Y-%m-%d')
-        #     fecha_dt = datetime.strptime(una_fecha, '%Y-%m-%d')
 
 # ver por donde imprimir los parametro, pantalla o csv
 
@@ -146,11 +107,7 @@ def pantalla_CSV():
 
 
 filtroDNIyCodigoBanco()
-"""emitidoYdepositados()
-estadosCheques() """
-fecha() 
-""" numeroDeCheque() """
+fecha()
+numeroDeCheque()
 pantalla_CSV() 
-""" print(posicionDni)
-print(ListaFecha)
-print(estadoDelCheque) """
+
